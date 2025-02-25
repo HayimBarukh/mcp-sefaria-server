@@ -5,6 +5,9 @@ FROM python:3.12-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Copy the README.md file first (this is what's missing)
+COPY README.md /app/
+
 # Copy the pyproject.toml and the src directory to the container
 COPY pyproject.toml /app/
 COPY src/sefaria_jewish_library /app/src/sefaria_jewish_library
