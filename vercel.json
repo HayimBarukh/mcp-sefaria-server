@@ -4,8 +4,6 @@
     { "src": "src/server.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/sse", "dest": "src/server.py" },
-    { "src": "/manifest.json", "dest": "src/server.py" },
-    { "src": "/capabilities.json", "dest": "src/server.py" }
+    { "src": "/(.*)", "dest": "src/server.py" }
   ]
 }
