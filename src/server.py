@@ -1,11 +1,16 @@
-from mcp.server.sse import SseServerTransport
-from mcp.server import Server
+# src/server.py
+# Vercel (Python) ждёт на уровне модуля переменную `app` — ASGI-приложение.
+# FastMCP умеет сам отдавать ASGI-app для SSE через .sse_app()
 
-app = Server("sefaria-mcp")
+from mcp.server.fastmcp import FastMCP
 
-# Регистрируем транспорт
-transport = SseServerTransport("/sse")
-app.include_router(transport.router)
+# создаём FastMCP-сервер
+mcp = FastMCP("sefaria")
 
-# Vercel handler
-handler = app.asgi_app
+# healthcheck-инструмент (полезно для быстрой проверки)
+@mcp.tool()
+def ping() -> str:
+    return "pong"
+
+# ASGI-приложение с SSE-эндпоинтом (по умолчанию путь /sse)
+app = mcp.sse_app()
