@@ -15,7 +15,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stderr),
-        logging.FileHandler('sefaria_jewish_library.log', encoding='utf-8')
+       #  logging.FileHandler('sefaria_jewish_library.log', encoding='utf-8')
     ]
 )
 logger = logging.getLogger('sefaria_jewish_library')
