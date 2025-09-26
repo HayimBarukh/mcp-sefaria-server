@@ -4,7 +4,9 @@
     { "src": "src/server.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "src/server.py" }
+    { "src": "/sse", "dest": "src/server.py" },
+    { "src": "/manifest.json", "dest": "src/server.py" },
+    { "src": "/capabilities.json", "dest": "src/server.py" }
   ],
   "installCommand": "pip install --upgrade pip && pip install -r requirements.txt"
 }
