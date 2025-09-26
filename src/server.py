@@ -1,4 +1,3 @@
-# src/server.py
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("sefaria")
@@ -11,5 +10,5 @@ def ping() -> str:
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 
-# FastMCP уже умеет /sse, /manifest.json, /capabilities.json
+# Автоматически отдаёт /sse, /manifest.json, /capabilities.json
 app = mcp.sse_app()
