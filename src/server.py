@@ -1,11 +1,21 @@
-import asyncio
-from mcp.server.sse import SseServerTransport  # ← правильное имя
-
+# src/server.py
 from src.sefaria_jewish_library.server import server as mcp_server
+from mcp.server.sse import SseServerTransport
 
-async def main():
-    transport = SseServerTransport("/sse")  # ← тоже SseServerTransport
-    await mcp_server.run(transport)
+# Создаём SSE-транспорт и регистрируем MCP-сервер
+transport = SseServerTransport("/sse")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# В некоторых версиях SDK требуется привязать сервер к транспорту:
+# Если этот метод есть — оставляем строку, если нет — удаляем/комментируем.
+try:
+    transport.register_server(mcp_server)  # <-- если метод существует
+except AttributeError:
+    pass
+
+# Vercel ищет переменную `app` (ASGI callable) на уровне модуля:
+app = getattr(transport, "app", None) or getattr(transport, "asgi_app", None)
+
+if app is None:
+    # На случай, если у твоей версии SDK имя свойства другое
+    raise RuntimeError("Cannot expose ASGI app from SseServerTransport; "
+                       "tried .app and .asgi_app")
