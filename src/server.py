@@ -1,16 +1,20 @@
 # src/server.py
-# Vercel (Python) ждёт на уровне модуля переменную `app` — ASGI-приложение.
-# FastMCP умеет сам отдавать ASGI-app для SSE через .sse_app()
-
 from mcp.server.fastmcp import FastMCP
 
-# создаём FastMCP-сервер
+# Создаём FastMCP MCP-сервер
 mcp = FastMCP("sefaria")
 
-# healthcheck-инструмент (полезно для быстрой проверки)
+# Healthcheck
 @mcp.tool()
 def ping() -> str:
+    """Healthcheck endpoint for deployment sanity."""
     return "pong"
 
-# ASGI-приложение с SSE-эндпоинтом (по умолчанию путь /sse)
+# Пример инструмента Sefaria (позже можно обернуть get_text/get_commentaries)
+@mcp.tool()
+def hello(name: str) -> str:
+    """Test tool to ensure MCP connector is working."""
+    return f"Hello, {name}!"
+
+# FastMCP умеет автоматически отдавать manifest и capabilities
 app = mcp.sse_app()
