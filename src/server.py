@@ -1,11 +1,10 @@
 import asyncio
-from mcp.server.sse import SseServerTransport  # <-- верное имя класса
+from mcp.server.sse import SseServerTransport  # ← правильное имя
 
-# Берём готовый экземпляр MCP-сервера из пакета
 from src.sefaria_jewish_library.server import server as mcp_server
 
 async def main():
-    transport = SseServerTransport("/sse")  # <-- корректный класс
+    transport = SseServerTransport("/sse")  # ← тоже SseServerTransport
     await mcp_server.run(transport)
 
 if __name__ == "__main__":
