@@ -1,4 +1,4 @@
-from sefaria_jewish_library.sefaria_handler import create_server
+from src.sefaria_jewish_library.sefaria_handler import create_server
 from mcp.server.sse import SSEServerTransport
 import asyncio
 
